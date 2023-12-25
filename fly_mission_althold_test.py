@@ -3,7 +3,7 @@ from dronekit import connect, VehicleMode, LocationGlobal, LocationGlobalRelativ
 from pymavlink import mavutil
 import math, time
 # Подключение к беспилотнику
-connection_string = 'tcp:127.0.0.1:5762'  # Поменяйте на свой способ подключения
+connection_string = 'tcp:127.0.0.1:5762'  
 vehicle = connect(connection_string, wait_ready=False)
 # Флаги для определения завершения взлета и полета к точке B
 droid = {'mode':0}  # Создаем словарь, который будет использоваться как объект
@@ -90,10 +90,7 @@ def set_yaw_takeoff(angle_c):
         # Интегральная составляющая
         integral += Ki * error
         
-        # if abs(error) < 1.0:
-        #     integral += 0.02 * Ki * error  # Применение меньшего коэффициента интеграции при малых ошибках
-        # else:
-        #     integral += Ki * error
+        
         integral = max(-5, min(integral, 5))  # Ограничиваем интегральную составляющую
             
         # Дифференциальная составляющая
@@ -117,7 +114,7 @@ def set_yaw_takeoff(angle_c):
         time.sleep(0.5)  # Увеличиваем время ожидания
         step_res +=1
         # Обновляем текущий угол
-        current_yaw_deg = get_yaw_vehicle_degrees() #radians_to_degrees(vehicle.attitude.yaw) % 360
+        current_yaw_deg = get_yaw_vehicle_degrees() 
         print(f"Т-напр.: {current_yaw_deg:.3f} градусов, "
               f"К4: {vehicle.channels.overrides['4']} , "
               f"Err deg: {error:.3f} , "
@@ -200,7 +197,7 @@ def fly_to_point(target_location):
 
 
 
-# global altitude_support_task
+
 
 # Куда лететь
 src_latitude = 50.450739  # широта
